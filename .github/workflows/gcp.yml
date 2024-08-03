@@ -3,6 +3,8 @@ name: GCP
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [master]
 
 jobs:
   deploy:
@@ -10,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: hw-prod
     env:
-      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/site:latest
+      IMAGE_NAME: ${{ secrets.GCP_PROJECT_ID }}/site:latest
     steps:
       # Git checkout
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
 
       # Login to GCP
       - uses: google-github-actions/setup-gcloud@v0.2.0
